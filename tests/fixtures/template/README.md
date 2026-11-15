@@ -36,6 +36,8 @@ The connection tests run anywhere. The database tests skip until
 
 ## Deploy it on Streamlit Community Cloud
 
+You do this once, during the roadmap's hello-world deploy task; `/dashkit:build-next` walks you through it. After that, every merge to `main` redeploys the app.
+
 1. At [share.streamlit.io](https://share.streamlit.io), **Create app** → **Deploy a public app from GitHub**.
 2. Pick this repository, branch `main`, main file `streamlit_app.py`.
 3. **Advanced settings:** Python 3.12, and paste the contents of your `secrets.toml` into **Secrets**.
