@@ -13,6 +13,11 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
+# Frozen copies of the blank template files. The project's own ROADMAP.md,
+# design.md, and README.md fill in as the team works, so tests about the
+# blank template must not read them. Copy the files here again whenever the
+# template's versions change.
+TEMPLATE = Path(__file__).resolve().parent / "fixtures" / "template"
 _spec = importlib.util.spec_from_file_location("progress", ROOT / "tools" / "progress.py")
 progress = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(progress)
@@ -67,7 +72,7 @@ def test_unknown_skill_and_bad_step_are_rejected():
 
 
 def test_read_state_on_the_template_is_all_not_done(tmp_path):
-    files = {n: (ROOT / n).read_text(encoding="utf-8")
+    files = {n: (TEMPLATE / n).read_text(encoding="utf-8")
              for n in ("ROADMAP.md", "design.md", "README.md")}
     commit_on_main(tmp_path, files)
     state = progress.read_state(tmp_path, issues=[])
@@ -76,7 +81,7 @@ def test_read_state_on_the_template_is_all_not_done(tmp_path):
 
 
 def test_template_roadmap_has_an_unfilled_review_section(tmp_path):
-    text = (ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+    text = (TEMPLATE / "ROADMAP.md").read_text(encoding="utf-8")
     assert "## Dashboard review" in text
     commit_on_main(tmp_path, {"ROADMAP.md": text})
     assert progress.read_state(tmp_path, issues=[]).review is False
