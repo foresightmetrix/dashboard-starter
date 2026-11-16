@@ -23,8 +23,9 @@ the OK of a Spec Lead (or the Spec Lead side-quest holder), named below.
 - **Every other role: zero to three people.** Two or three people may share
   a role; any one of them may run its skill or give its OK.
 - **A role nobody holds is a side quest.** Name one teammate for it under
-  `## Side quests`. They run that role's skill and give its OK. Anyone may
-  hold more than one side quest.
+  `## Side quests`. They take on that role's job: its skill (for the Data
+  Lead, the first phase), its OK, and its build tasks. Anyone may hold more
+  than one side quest.
 
 ## Our team
 
