@@ -177,3 +177,12 @@ def test_cli_prints_on_a_cp1252_pipe(monkeypatch):
     text = out.buffer.getvalue().decode("utf-8")
     assert text.splitlines()[0].startswith("PROJECT  ▶ Spec")
     assert text.splitlines()[1].startswith("SPEC  ▶ Stakeholder")
+
+
+def test_template_design_has_an_unfilled_make_it_yours_section():
+    text = (TEMPLATE / "design.md").read_text(encoding="utf-8")
+    assert f"## Make it yours\n\n{progress.MAKE_IT_YOURS_PLACEHOLDER}" in text
+    roadmap = (TEMPLATE / "ROADMAP.md").read_text(encoding="utf-8")
+    assert ("| 6. Make it yours | The team makes the dashboard its own; "
+            "every test still passes. | |") in roadmap
+    assert "`phase-1` through `phase-6`" in roadmap
