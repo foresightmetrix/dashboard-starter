@@ -186,3 +186,9 @@ def test_template_design_has_an_unfilled_make_it_yours_section():
     assert ("| 6. Make it yours | The team makes the dashboard its own; "
             "every test still passes. | |") in roadmap
     assert "`phase-1` through `phase-6`" in roadmap
+
+
+def test_template_make_it_yours_note_is_not_done_even_with_issue_closed(tmp_path):
+    commit_on_main(tmp_path, {"design.md": (TEMPLATE / "design.md").read_text(encoding="utf-8")})
+    issues = [{"state": "CLOSED", "labels": [{"name": "phase-6"}]}]
+    assert progress.read_state(tmp_path, issues=issues).make_it_yours is False

@@ -158,7 +158,8 @@ def read_state(root: Path, issues: list[dict] | None = None) -> RepoState:
                             _section(roadmap_text, "## Dashboard review"), re.M))
 
     note = _section(design_text, "## Make it yours").strip()
-    has_note = bool(note) and note != MAKE_IT_YOURS_PLACEHOLDER
+    note = note.removesuffix("---").strip()
+    has_note = bool(note) and MAKE_IT_YOURS_PLACEHOLDER not in note
 
     if issues is None:
         closed = total = None
